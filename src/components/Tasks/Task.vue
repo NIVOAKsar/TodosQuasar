@@ -3,10 +3,10 @@
     :class="!task.completed? 'bg-orange-1': 'bg-green-1'"
     clickable
     v-ripple
-    @click="task.completed = !task.completed"
+    @click="updateTask({id:id,updates: {completed: ! task.completed}})"
   >
     <q-item-section side top>
-      <q-checkbox v-model="task.completed" />
+      <q-checkbox :value="task.completed" class="no-pointer-events" />
     </q-item-section>
 
     <q-item-section>
@@ -26,12 +26,42 @@
         </div>
       </div>
     </q-item-section>
+    <q-item-section side>
+      <q-btn flat round dense color="red" icon="delete" @click.stop="promptToDelete(id)" />
+    </q-item-section>
   </q-item>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-  props: ['task', 'id']
+  props: ['task', 'id'],
+  data() {
+    return {
+      confirm: true
+    }
+  },
+  methods: {
+    ...mapActions('tasks', ['updateTask', 'deleteTask']),
+    promptToDelete(id) {
+      this.$q.dialog({
+        title: 'Confirm',
+        dark: true,
+        message: 'Would you like to turn on the wifi?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        // console.log('>>>> OK')
+        this.deleteTask(this.id)
+      }).onOk(() => {
+        // console.log('>>>> second OK catcher')
+      }).onCancel(() => {
+        // console.log('>>>> Cancel')
+      }).onDismiss(() => {
+        // console.log('I am triggered on both OK and Cancel')
+      })
+    }
+  }
 }
 </script>
 
