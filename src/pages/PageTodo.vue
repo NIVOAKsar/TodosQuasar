@@ -1,7 +1,8 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="q-mb-lg">
+    <div class="row q-mb-lg">
       <search />
+      <sort />
     </div>
 
     <p
@@ -25,13 +26,15 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 export default {
+  name: 'PageTodo',
   components: {
     'task': require('components/Tasks/Task.vue').default,
     'add-task': require('components/Tasks/Modals/AddTask.vue').default,
     'tasks-todo': require('components/Tasks/TasksTodo.vue').default,
     'tasks-completed': require('components/Tasks/TasksCompleted.vue').default,
     'no-tasks': require('components/Tasks/NoTasks.vue').default,
-    'search': require('components/Tasks/Tools/Search.vue').default
+    'search': require('components/Tasks/Tools/Search.vue').default,
+    'sort': require('components/Tasks/Tools/Sort.vue').default
   },
   data() {
     return {
