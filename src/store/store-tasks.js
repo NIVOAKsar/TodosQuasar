@@ -21,6 +21,42 @@ const state = {
             dueDate: '2020/06/20',
             dueTime: '19:30'
         },
+        'ID4': {
+            name: 'Go to shop',
+            completed: false,
+            dueDate: '2020/06/18',
+            dueTime: '17:30'
+        },
+        'ID5': {
+            name: 'Get bananas',
+            completed: false,
+            dueDate: '2020/06/19',
+            dueTime: '18:30'
+        },
+        'ID6': {
+            name: 'Get apples',
+            completed: false,
+            dueDate: '2020/06/20',
+            dueTime: '19:30'
+        },
+        'ID7': {
+            name: 'Go to shop',
+            completed: false,
+            dueDate: '2020/06/18',
+            dueTime: '17:30'
+        },
+        'ID8': {
+            name: 'Get bananas',
+            completed: false,
+            dueDate: '2020/06/19',
+            dueTime: '18:30'
+        },
+        'ID9': {
+            name: 'Get apples',
+            completed: false,
+            dueDate: '2020/06/20',
+            dueTime: '19:30'
+        },
     },
     search: '',
     sort: 'dueDate'

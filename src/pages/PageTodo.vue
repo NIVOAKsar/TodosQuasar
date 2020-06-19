@@ -1,20 +1,36 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="row q-mb-lg">
-      <search />
-      <sort />
-    </div>
+  <q-page>
+    <div class="q-pa-md absolute full-width full-height column">
+      <div class="row q-mb-lg">
+        <search />
+        <sort />
+      </div>
 
-    <p
-      v-if="search && !Object.keys(tasksTodo).length && !Object.keys(tasksCompleted).length"
-    >no search results</p>
+      <p
+        v-if="search && !Object.keys(tasksTodo).length && !Object.keys(tasksCompleted).length"
+      >no search results</p>
 
-    <no-tasks v-if="!Object.keys(tasksTodo).length && !search" />
-    <tasks-todo v-if="Object.keys(tasksTodo).length" :tasks-todo="tasksTodo" />
-    <tasks-completed v-if="Object.keys(tasksCompleted).length" :tasks-completed="tasksCompleted" />
+      <q-scroll-area class="q-scroll-area-tasks relative-position">
+        <no-tasks v-if="!Object.keys(tasksTodo).length && !search" />
+        <tasks-todo v-if="Object.keys(tasksTodo).length" :tasks-todo="tasksTodo" />
+        <tasks-completed
+          v-if="Object.keys(tasksCompleted).length"
+          :tasks-completed="tasksCompleted"
+          class="q-mb-xl"
+        />
+      </q-scroll-area>
 
-    <div class="absolute-bottom text-center q-mb-lg">
-      <q-btn round dense color="primary" size="24px" icon="add" @click="showAddTask = true" />
+      <div class="absolute-bottom text-center q-mb-lg no-pointer-events">
+        <q-btn
+          round
+          dense
+          color="primary"
+          size="24px"
+          icon="add"
+          @click="showAddTask = true"
+          class="all-pointer-events"
+        />
+      </div>
     </div>
 
     <q-dialog persistent v-model="showAddTask">
@@ -47,8 +63,6 @@ export default {
   },
   mounted() {
     this.$root.$on('showAddTask', () => {
-      console.log('boom');
-
       this.showAddTask = true
     })
   },
@@ -58,5 +72,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.q-scroll-area-tasks {
+  display: flex;
+  flex-grow: 1;
+}
 </style>
