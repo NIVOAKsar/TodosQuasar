@@ -14,7 +14,7 @@
       <q-item-label
         v-html="$options.filters.searchHighlight(task.name,search)"
         :class="{'text-strikethrough': task.completed}"
-      ></q-item-label>
+      />
     </q-item-section>
 
     <q-item-section v-if="task.dueDate" side>
@@ -25,7 +25,7 @@
         <div class="column">
           <q-item-label caption class="row justify-end">{{task.dueDate | niceDate}}</q-item-label>
           <q-item-label caption class="row justify-end">
-            <small>{{task.dueTime}}</small>
+            <small>{{taskDueTime}}</small>
           </q-item-label>
         </div>
       </div>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import { date } from 'quasar'
 const { formatDate } = date
 
@@ -59,7 +59,15 @@ export default {
     }
   },
   computed: {
-    ...mapState('tasks', ['search'])
+    ...mapState('tasks', ['search']),
+    ...mapGetters('settings', ['settings']),
+    taskDueTime() {
+      if (this.settings.show12HourTimeFormat) {
+        return formatDate(this.task.dueDate + ' ' + this.task.dueTime, 'h:mmA')
+
+      }
+      return this.task.dueTime
+    }
   },
   filters: {
     niceDate(value) {

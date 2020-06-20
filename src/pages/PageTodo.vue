@@ -11,7 +11,7 @@
       >no search results</p>
 
       <q-scroll-area class="q-scroll-area-tasks relative-position">
-        <no-tasks v-if="!Object.keys(tasksTodo).length && !search" />
+        <no-tasks v-if="!Object.keys(tasksTodo).length && !search && !settings.showTasksInOneList" />
         <tasks-todo v-if="Object.keys(tasksTodo).length" :tasks-todo="tasksTodo" />
         <tasks-completed
           v-if="Object.keys(tasksCompleted).length"
@@ -59,7 +59,9 @@ export default {
   },
   computed: {
     ...mapState('tasks', ['search']),
-    ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted'])
+    ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted']),
+    ...mapGetters('settings', ['settings'])
+
   },
   mounted() {
     this.$root.$on('showAddTask', () => {
